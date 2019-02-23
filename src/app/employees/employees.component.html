@@ -1,5 +1,6 @@
-<div>
-  <label>name:
-    <input [(ngModel)]="employee.name" placeholder="name">
-  </label>
-</div>
+<h2>Current Employees</h2>
+<ul class="employees">
+  <li *ngFor="let employee of employees">
+    <span class="badge">{{employee.id}}</span> {{employee.name}}
+  </li>
+</ul>
