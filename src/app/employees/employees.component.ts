@@ -10,21 +10,17 @@ import { Employee } from '../employee';
 })
 export class EmployeesComponent implements OnInit {
   employees: Employee[];
-  selectedEmployee: Employee;
-
-  onSelect(employee: Employee): void {
-    this.selectedEmployee = employee;
+  
+  constructor(private employeeService: EmployeeService) { }
+  
+  ngOnInit() {
+    this.getEmployees();
   }
 
   getEmployees(): void {
     this.employeeService.getEmployees()
       .subscribe(employees => this.employees = employees);
   }
-
-  constructor(private employeeService: EmployeeService) { }
-
-  ngOnInit() {
-    this.getEmployees();
-  }
+ 
 
 }
