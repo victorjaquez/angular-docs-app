@@ -11,6 +11,7 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EmployeeSearchComponent } from './employee-search/employee-search.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     EmployeesComponent,
     EmployeeDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    EmployeeSearchComponent
   ],
   imports: [
     BrowserModule,

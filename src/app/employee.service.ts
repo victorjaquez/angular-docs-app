@@ -75,4 +75,16 @@ export class EmployeeService {
     )
   }
 
+  /**GET employees whose name contains search term */
+  searchEmployees(term: string): Observable<Employee[]> {
+    if(!term.trim()) {
+      // if not search term, return empty employee array.
+      return of([]);
+    }
+    return this.http.get<Employee[]>(`${this.employeesUrl}/?name=${term}`).pipe(
+      tap(_ => this.log(`found employees matching ${term}`)),
+      catchError(this.handleError<Employee[]>('searchEmployees', []))
+    );
+  }
+
 }
