@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+const httpOptions = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,14 @@ export class EmployeeService {
     return this.http.get<Employee>(url).pipe(
       tap(_ => this.log(`fetched employee id=${id}`)),
       catchError(this.handleError<Employee>(`getEmployee id=${id}`))
+    )
+  }
+
+  /**PUT: update the employee on the server */
+  updateEmployee(employee: Employee): Observable<any> {
+    return this.http.put(this.employeesUrl, employee, httpOptions).pipe(
+      tap(_ => this.log(`updated employee id=${employee.id}`)),
+      catchError(this.handleError<any>('updatedEmployee'))
     )
   }
 
