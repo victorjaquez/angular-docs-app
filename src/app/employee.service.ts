@@ -22,7 +22,6 @@ export class EmployeeService {
 
   /** GET employees from the server */
   getEmployees(): Observable<Employee[]> {
-    // TODO: send the message _after_ fetching the employees
     this.messageService.add('EmployeeService: fetched employees')
     return this.http.get<Employee[]>(this.employeesUrl)
       .pipe(
@@ -31,7 +30,6 @@ export class EmployeeService {
       );
   }
 
-  /** Handle Http operation that failed. */
   private handleError<T> (operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
       console.log(error)
@@ -40,10 +38,13 @@ export class EmployeeService {
     }
   }
 
+  /**GET employee by id. Will 404 if id not found */
   getEmployee(id: number): Observable<Employee> {
-    // TODO: send the message _after_ fetching the employee
-    this.messageService.add(`MessageService: fetched employee id=${id}`)
-    return of(EMPLOYEES.find(employee => employee.id === id));
+    const url = `${this.employeesUrl}/${id}`;
+    return this.http.get<Employee>(url).pipe(
+      tap(_ => this.log(`fetched employee id=${id}`)),
+      catchError(this.handleError<Employee>(`getEmployee id=${id}`))
+    )
   }
 
 }
