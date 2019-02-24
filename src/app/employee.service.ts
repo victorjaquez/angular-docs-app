@@ -64,4 +64,15 @@ export class EmployeeService {
     );
   }
 
+  /**DELETE: delete the employee from the server */
+  deleteEmployee(employee: Employee | number): Observable<Employee> {
+    const id = typeof employee === 'number' ? employee : employee.id;
+    const url = `${this.employeesUrl}/${id}`;
+
+    return this.http.delete<Employee>(url, httpOptions).pipe(
+      tap(_ => this.log(`deleted employee id=${id}`)),
+      catchError(this.handleError<Employee>('deleteEmployee'))
+    )
+  }
+
 }
